@@ -1,0 +1,1357 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LỚP 7 GHK1 FORM 2026 TE - Ms Lê Hằng English</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Canvas Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        :root {
+            --primary-bg: linear-gradient(-45deg, #8854C0, #FDCB6E, #00C9A7, #FF7675);
+            --card-bg: rgba(255, 255, 255, 0.96);
+            --correct-color: #00D26A;
+            --wrong-color: #FF4757;
+            --text-color: #2D3436;
+            --accent-purple: #8854C0;
+            --btn-shadow: 0 6px 0 #CBD5E0;
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Nunito', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: var(--primary-bg);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            min-height: 100vh;
+            padding: 20px 10px;
+            color: var(--text-color);
+            position: relative;
+        }
+
+        /* Moving Pattern Overlay */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 100 100"><text x="10" y="30" font-size="20">⭐</text><text x="50" y="70" font-size="20">🌸</text><text x="70" y="30" font-size="20">🐱</text><text x="20" y="80" font-size="20">☁️</text></svg>');
+            opacity: 0.25;
+            pointer-events: none;
+            z-index: 0;
+            animation: floatingPattern 20s linear infinite;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes floatingPattern {
+            from { background-position: 0 0; }
+            to { background-position: 100px 200px; }
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header Styling */
+        .header-card {
+            background: white;
+            border-radius: 20px;
+            padding: 15px 20px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            margin-bottom: 15px;
+            border: 3px solid #8854C0;
+        }
+
+        .header-card h2 {
+            font-size: 1.1rem;
+            color: #8854C0;
+            margin-bottom: 4px;
+        }
+
+        .header-card p.promo {
+            font-size: 0.85rem;
+            color: #d63031;
+            font-weight: 700;
+        }
+
+        .notice-box {
+            background: #FFF3BF;
+            border: 2px dashed #F59E0B;
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 20px;
+            color: #78350F;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .notice-box h3 {
+            font-size: 1rem;
+            color: #D97706;
+            margin-bottom: 6px;
+            text-align: center;
+        }
+
+        .notice-box p {
+            font-size: 0.9rem;
+            line-height: 1.4;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        /* Question Cards */
+        .question-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border: 3px solid #E2E8F0;
+            transition: transform 0.2s ease;
+        }
+
+        .question-card:hover {
+            border-color: #8854C0;
+        }
+
+        .q-number {
+            font-weight: 800;
+            font-size: 1.1rem;
+            color: #8854C0;
+            margin-bottom: 10px;
+            display: inline-block;
+            background: #F3E8FF;
+            padding: 4px 12px;
+            border-radius: 12px;
+        }
+
+        .q-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .q-title u {
+            color: #E63946;
+            font-weight: 800;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+        }
+
+        /* Options Grid */
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .opt-btn {
+            background: #FFFFFF;
+            border: 2px solid #E2E8F0;
+            border-radius: 16px;
+            padding: 12px 16px;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #2D3436;
+            cursor: pointer;
+            text-align: left;
+            box-shadow: 0 5px 0 #CBD5E0;
+            transition: all 0.15s ease;
+            position: relative;
+            outline: none;
+        }
+
+        .opt-btn:hover:not([disabled]) {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 0 #CBD5E0;
+            background: #F8FAFC;
+        }
+
+        .opt-btn:active:not([disabled]) {
+            transform: translateY(3px);
+            box-shadow: 0 2px 0 #CBD5E0;
+        }
+
+        .opt-btn.correct {
+            background-color: var(--correct-color) !important;
+            border-color: #00B359 !important;
+            color: white !important;
+            box-shadow: 0 5px 0 #00994D !important;
+        }
+
+        .opt-btn.wrong {
+            background-color: var(--wrong-color) !important;
+            border-color: #E03645 !important;
+            color: white !important;
+            box-shadow: 0 5px 0 #C02E3C !important;
+        }
+
+        .opt-btn u {
+            color: #E63946;
+            font-weight: 800;
+        }
+        .opt-btn.correct u, .opt-btn.wrong u {
+            color: #FFF;
+        }
+
+        /* Shake animation for incorrect answer */
+        .shake {
+            animation: shakeAnim 0.4s ease-in-out;
+        }
+
+        @keyframes shakeAnim {
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-8px); }
+            40% { transform: translateX(8px); }
+            60% { transform: translateX(-5px); }
+            80% { transform: translateX(5px); }
+        }
+
+        /* Explanation Box */
+        .explanation-box {
+            display: none;
+            background: #F0FDF4;
+            border: 2px solid #86EFAC;
+            border-radius: 15px;
+            padding: 15px;
+            margin-top: 15px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #166534;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .exp-title {
+            font-weight: 800;
+            color: #15803D;
+            margin-bottom: 8px;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .exp-section {
+            margin-bottom: 6px;
+        }
+
+        .exp-section strong {
+            color: #0F766E;
+        }
+
+        /* Custom AI Graphics for Notices/Signs */
+        .visual-container {
+            display: flex;
+            justify-content: center;
+            margin: 15px 0;
+        }
+
+        .sign-board {
+            background: #FEF3C7;
+            border: 4px solid #D97706;
+            border-radius: 12px;
+            padding: 15px 25px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            max-width: 300px;
+        }
+
+        .sign-icon {
+            font-size: 2.5rem;
+            margin-bottom: 5px;
+        }
+
+        .sign-text {
+            font-weight: 800;
+            color: #92400E;
+            text-transform: uppercase;
+            font-size: 0.95rem;
+        }
+
+        .phone-mockup {
+            width: 280px;
+            background: #111827;
+            border-radius: 24px;
+            padding: 12px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.25);
+        }
+
+        .phone-screen {
+            background: #E5E7EB;
+            border-radius: 16px;
+            padding: 12px;
+            font-size: 0.85rem;
+        }
+
+        .chat-bubble {
+            background: #0084FF;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 12px 12px 0 12px;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+        }
+
+        /* Submit & Modal */
+        .submit-container {
+            text-align: center;
+            margin: 30px 0 50px;
+        }
+
+        .submit-btn {
+            background: linear-gradient(180deg, #FF7675 0%, #D63031 100%);
+            color: white;
+            font-size: 1.3rem;
+            font-weight: 800;
+            border: none;
+            border-radius: 20px;
+            padding: 15px 40px;
+            cursor: pointer;
+            box-shadow: 0 8px 0 #962D2D;
+            transition: all 0.2s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 11px 0 #962D2D;
+        }
+
+        .submit-btn:active {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 #962D2D;
+        }
+
+        /* Result Popup Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top:0; left:0; width:100%; height:100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 24px;
+            padding: 30px;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 4px solid #8854C0;
+        }
+
+        @keyframes popIn {
+            from { transform: scale(0.7); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-score {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #8854C0;
+            margin: 15px 0;
+        }
+
+        .modal-feedback {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #2D3436;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            background: #F3E8FF;
+            padding: 15px;
+            border-radius: 16px;
+        }
+
+        .close-modal-btn {
+            background: #00C9A7;
+            color: white;
+            font-weight: 800;
+            font-size: 1.1rem;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 15px;
+            cursor: pointer;
+            box-shadow: 0 5px 0 #00967D;
+        }
+
+        .section-header {
+            background: #8854C0;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 14px;
+            font-weight: 800;
+            font-size: 1rem;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Header -->
+    <div class="header-card">
+        <h2>Giáo viên tạo: Ms Lê Hằng English</h2>
+        <p class="promo">Đăng kí học tiếng anh 1-12, IELTS vui lòng liên hệ Ms Lê Hằng, zalo 0584 965 348.</p>
+    </div>
+
+    <!-- Notice Box -->
+    <div class="notice-box">
+        <h3>⚠️ LỜI NHẮC CỰC KỲ QUAN TRỌNG ⚠️</h3>
+        <p>Chỉ có đọc kỹ giải thích ngay sau mỗi câu, sau đó ghi lại từ vựng/cấu trúc mới vào vở để học thì mới thực sự giỏi lên.</p>
+        <p>Làm cho xong mà không đọc giải thích hay đọc qua loa không ghi chép thì chỉ tốn thời gian vô ích!</p>
+        <p style="margin-top: 6px; color: #D97706;">👉 <strong>Kéo tới đâu, làm tới đó! *LỚP 7 GHK1 FORM 2026 TE</strong></p>
+    </div>
+
+    <!-- Quiz Area -->
+    <div id="quiz-container"></div>
+
+    <!-- Submit Button -->
+    <div class="submit-container">
+        <button class="submit-btn" onclick="submitQuiz()">NỘP BÀI TỔNG KẾT 🎯</button>
+    </div>
+</div>
+
+<!-- Modal Popup Result -->
+<div class="modal-overlay" id="resultModal">
+    <div class="modal-content">
+        <h2>🎉 KẾT QUẢ BÀI THI 🎉</h2>
+        <div class="modal-score" id="scoreDisplay">0 / 40</div>
+        <div class="modal-feedback" id="feedbackDisplay"></div>
+        <button class="close-modal-btn" onclick="closeModal()">Đóng & Kiểm Tra Lại</button>
+    </div>
+</div>
+
+<script>
+// Web Audio API Sound Effects Generator
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+function playSound(type) {
+    if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+    }
+    if (type === 'correct') {
+        // Ding Sound
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(523.25, audioCtx.currentTime); // C5
+        osc.frequency.exponentialRampToValueAtTime(659.25, audioCtx.currentTime + 0.15); // E5
+        gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.4);
+    } else if (type === 'wrong') {
+        // Téo teo tèo / Buzz Sound
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(220, audioCtx.currentTime); // A3
+        osc.frequency.setValueAtTime(160, audioCtx.currentTime + 0.15);
+        gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.4);
+    }
+}
+
+// Full Quiz Data (40 Questions - 100% Preserved)
+const questionsData = [
+    {
+        section: "Phonetics - Pronunciation",
+        qText: "Mark the letter A, B, C or D on your answer sheet to indicate the word whose underlined part differs from the other three in pronunciation in each of the following questions.<br><b>Question 1.</b>",
+        options: [
+            { text: "<u>a</u>bout", val: "A" },
+            { text: "<u>a</u>ffect", val: "B" },
+            { text: "<u>a</u>gree", val: "C" },
+            { text: "<u>a</u>ny", val: "D" }
+        ],
+        correct: "D",
+        exp: {
+            optTrans: "A. about /əˈbaʊt/ (v/prep): về, khoảng\nB. affect /əˈfekt/ (v): ảnh hưởng\nC. agree /əˈɡriː/ (v): đồng ý\nD. any /ˈeni/ (det/pron): bất kỳ",
+            translation: "Chọn từ có phần gạch chân phát âm khác với các từ còn lại.",
+            whyCorrect: "Phần gạch chân 'a' trong 'any' được phát âm là /e/, trong khi 3 đáp án còn lại 'about', 'affect', 'agree' đều được phát âm là /ə/ (âm ơ ngắn).",
+            whyWrong: "Các đáp án A, B, C đều phát âm nguyên âm gạch chân là /ə/ nên không chọn."
+        }
+    },
+    {
+        section: "Phonetics - Pronunciation",
+        qText: "<b>Question 2.</b>",
+        options: [
+            { text: "strang<u>er</u>", val: "A" },
+            { text: "sing<u>er</u>", val: "B" },
+            { text: "t<u>er</u>m", val: "C" },
+            { text: "energ<u>y</u>", val: "D" } // Keep original text
+        ],
+        correct: "C",
+        exp: {
+            optTrans: "A. stranger /ˈstreɪndʒər/ (n): người lạ\nB. singer /ˈsɪŋər/ (n): ca sĩ\nC. term /tɜːrm/ (n): học kỳ, thuật ngữ\nD. energy /ˈenərdʒi/ (n): năng lượng",
+            translation: "Chọn từ có phần gạch chân phát âm khác với các từ còn lại.",
+            whyCorrect: "Phần gạch chân 'er' trong 'term' phát âm là âm dài /ɜːr/, còn trong 'stranger' và 'singer' phát âm là âm ngắn /ər/.",
+            whyWrong: "A và B có âm 'er' nhẹ/ngắn /ər/, khác biệt rõ rệt với âm dài /ɜːr/ của C."
+        }
+    },
+    {
+        section: "Phonetics - Stress",
+        qText: "Mark the letter A, B, C or D on your answer sheet to indicate the word that differs from the other three in the position of primary stress in each of the following questions.<br><b>Question 3.</b>",
+        options: [
+            { text: "hobby", val: "A" },
+            { text: "dollhouse", val: "B" },
+            { text: "collect", val: "C" },
+            { text: "riding", val: "D" }
+        ],
+        correct: "C",
+        exp: {
+            optTrans: "A. hobby /ˈhɒbi/ (n): sở thích (trọng âm 1)\nB. dollhouse /ˈdɒlhaʊs/ (n): nhà búp bê (trọng âm 1)\nC. collect /kəˈlekt/ (v): thu thập (trọng âm 2)\nD. riding /ˈraɪdɪŋ/ (n/v): việc cưỡi/đi xe (trọng âm 1)",
+            translation: "Chọn từ có trọng âm chính rơi vào vị trí khác.",
+            whyCorrect: "'collect' có trọng âm rơi vào âm tiết thứ 2 (kəˈlekt). Các từ còn lại có trọng âm rơi vào âm tiết thứ 1.",
+            whyWrong: "A, B, D đều nhấn trọng âm ở âm tiết thứ nhất."
+        }
+    },
+    {
+        section: "Phonetics - Stress",
+        qText: "<b>Question 4.</b>",
+        options: [
+            { text: "swimming", val: "A" },
+            { text: "cardboard", val: "B" },
+            { text: "models", val: "C" },
+            { text: "upstairs", val: "D" }
+        ],
+        correct: "D",
+        exp: {
+            optTrans: "A. swimming /ˈswɪmɪŋ/ (n): bơi lội (trọng âm 1)\nB. cardboard /ˈkɑːdbɔːd/ (n): bìa cứng (trọng âm 1)\nC. models /ˈmɒdlz/ (n): mô hình (trọng âm 1)\nD. upstairs /ˌʌpˈsteəz/ (adv): trên tầng (trọng âm 2)",
+            translation: "Chọn từ có trọng âm rơi vào vị trí khác.",
+            whyCorrect: "'upstairs' có trọng âm nhấn vào âm tiết thứ 2. A, B, C đều nhấn vào âm tiết thứ 1.",
+            whyWrong: "A, B, C đều có trọng âm thứ nhất nên không chọn."
+        }
+    },
+    {
+        section: "Multiple Choice - Grammar & Vocabulary",
+        qText: "<b>Question 5.</b> He takes ______ more work in his free time to support his family.",
+        options: [
+            { text: "on", val: "A" },
+            { text: "in", val: "B" },
+            { text: "apart", val: "C" },
+            { text: "from", val: "D" }
+        ],
+        correct: "A",
+        exp: {
+            optTrans: "A. on: tiếp nhận, đảm nhận\nB. in: tiếp thu, lừa dối\nC. apart: tháo rời\nD. from: từ",
+            translation: "Anh ấy đảm nhận thêm công việc vào thời gian rảnh để hỗ trợ gia đình.",
+            whyCorrect: "Cụm động từ 'take on' nghĩa là 'đảm nhận (đảm nhiệm) công việc/trách nhiệm'. Context ở đây cần nghĩa đảm nhận công việc.",
+            whyWrong: "Take in (lừa dối/hiểu), take apart (tháo rời), take from (lấy từ) đều không phù hợp ngữ cảnh."
+        }
+    },
+    {
+        section: "Multiple Choice - Grammar & Vocabulary",
+        qText: "<b>Question 6.</b> Nam has a bike. He often ______ his bike to school.",
+        options: [
+            { text: "is", val: "A" },
+            { text: "goes", val: "B" },
+            { text: "rides", val: "C" },
+            { text: "makes", val: "D" }
+        ],
+        correct: "C",
+        exp: {
+            optTrans: "A. is: thì/là/ở\nB. goes: đi\nC. rides: cưỡi, đi (xe đạp/máy/ngựa)\nD. makes: làm, chế tạo",
+            translation: "Nam có một chiếc xe đạp. Bạn ấy thường đi xe đạp đến trường.",
+            whyCorrect: "Động từ đi kèm với phương tiện 'bike' (xe đạp) phải là 'ride' (ride a bike = đi xe đạp).",
+            whyWrong: "Goes phải đi với giới từ (go to school by bike), không dùng 'go his bike'."
+        }
+    },
+    {
+        section: "Multiple Choice - Grammar & Vocabulary",
+        qText: "<b>Question 7.</b> Laura wants to ______ a book about Vietnamese literature.",
+        options: [
+            { text: "read", val: "A" },
+            { text: "reading", val: "B" },
+            { text: "to read", val: "C" },
+            { text: "to reading", val: "D" }
+        ],
+        correct: "A",
+        exp: {
+            optTrans: "A. read (v nguyên thể)\nB. reading (V-ing)\nC. to read (to V)\nD. to reading (không đúng dạng)",
+            translation: "Laura muốn đọc một cuốn sách về văn học Việt Nam.",
+            whyCorrect: "Cấu trúc 'want + to V_infinitive' (muốn làm gì). Vì đề bài đã có sẵn từ 'to' ở câu gốc (wants to...), nên vị trí trống chỉ cần điền động từ nguyên thể 'read'.",
+            whyWrong: "Nếu chọn C thì thành 'wants to to read' (bị lặp từ 'to')."
+        }
+    },
+    {
+        section: "Multiple Choice - Grammar & Vocabulary",
+        qText: "<b>Question 8.</b> Collecting old books is Quan’s ______. He has a lot of old books.",
+        options: [
+            { text: "collection", val: "A" },
+            { text: "model", val: "B" },
+            { text: "dollhouse", val: "C" },
+            { text: "hobby", val: "D" }
+        ],
+        correct: "D",
+        exp: {
+            optTrans: "A. collection (n): bộ sưu tập\nB. model (n): mô hình\nC. dollhouse (n): nhà búp bê\nD. hobby (n): sở thích",
+            translation: "Sưu tầm sách cũ là sở thích của Quân. Bạn ấy có rất nhiều sách cũ.",
+            whyCorrect: "Hành động 'Collecting old books' (sưu tầm sách cũ) đóng vai trò là một sở thích (hobby).",
+            whyWrong: "A (bộ sưu tập), B (mô hình), C (nhà búp bê) không hợp nghĩa của chủ ngữ."
+        }
+    },
+    {
+        section: "Multiple Choice - Grammar & Vocabulary",
+        qText: "<b>Question 9.</b> My mum does exercise every day to ______ fit.",
+        options: [
+            { text: "keep", val: "A" },
+            { text: "do", val: "B" },
+            { text: "take", val: "C" },
+            { text: "turn", val: "D" }
+        ],
+        correct: "A",
+        exp: {
+            optTrans: "A. keep: giữ\nB. do: làm\nC. take: lấy/cầm\nD. turn: xoay/rẽ",
+            translation: "Mẹ tôi tập thể dục mỗi ngày để giữ dáng.",
+            whyCorrect: "Collocation chuẩn trong tiếng Anh: 'keep fit' nghĩa là 'giữ cơ thể cân đối, khỏe mạnh'.",
+            whyWrong: "Do fit, take fit, turn fit không tồn tại trong cụm từ cố định này."
+        }
+    },
+    {
+        section: "Multiple Choice - Grammar & Vocabulary",
+        qText: "<b>Question 10.</b> The lamp doesn’t give much light. It’s quite ______.",
+        options: [
+            { text: "dim", val: "A" },
+            { text: "fresh", val: "B" },
+            { text: "bright", val: "C" },
+            { text: "tasty", val: "D" }
+        ],
+        correct: "A",
+        exp: {
+            optTrans: "A. dim (adj): mờ, lờ đờ\nB. fresh (adj): tươi mát\nC. bright (adj): sáng rực\nD. tasty (adj): ngon miệng",
+            translation: "Cây đèn không tỏa nhiều ánh sáng. Nó khá là mờ.",
+            whyCorrect: "Vế đầu 'doesn't give much light' (không cho nhiều ánh sáng) -> suy ra tính chất là 'dim' (mờ/tối).",
+            whyWrong: "Bright là trái nghĩa (sáng); fresh và tasty dùng cho thực phẩm/không khí."
+        }
+    },
+    {
+        section: "Multiple Choice - Grammar & Vocabulary",
+        qText: "<b>Question 11.</b> ______ you ______ with nice friends when you ______ at school?",
+        options: [
+            { text: "Did - study - are", val: "A" },
+            { text: "Did - study - were", val: "B" },
+            { text: "Did - studied - are", val: "C" },
+            { text: "Do - study - was", val: "D" }
+        ],
+        correct: "B",
+        exp: {
+            optTrans: "Dịch: Bạn có học cùng những người bạn tốt khi bạn còn ở trường không?",
+            translation: "Câu hỏi về hành động đã diễn ra trong quá khứ.",
+            whyCorrect: "Sử dụng thì Quá khứ đơn: Cấu trúc hỏi 'Did + S + V_nguyên thể...?'. Mệnh đề thời gian dùng tobe quá khứ cho 'you' là 'were'.",
+            whyWrong: "A và C dùng 'are' (hiện tại) bị lệch thì; C thừa 'studied' sau Did; D dùng 'Do' (hiện tại) và 'was' (sai chủ ngữ 'you')."
+        }
+    },
+    {
+        section: "Multiple Choice - Communication",
+        qText: "<b>Question 12.</b> Peter: Nick is good at drawing and designing. What project should he join?<br>Long: ______.",
+        options: [
+            { text: "He can join the Visit-to-Read project at the local hospital", val: "A" },
+            { text: "Garden-to-Give is a good project for him", val: "B" },
+            { text: "He can be a member of Postcard Designing project", val: "C" },
+            { text: "I don’t care him.", val: "D" }
+        ],
+        correct: "C",
+        exp: {
+            optTrans: "A. Cậu ấy có thể tham gia dự án Đọc sách ở bệnh viện local\nB. Garden-to-Give là dự án tốt cho cậu ấy\nC. Cậu ấy có thể là thành viên của dự án Thiết kế Bưu thiếp\nD. Tôi không quan tâm cậu ấy.",
+            translation: "Peter: Nick giỏi vẽ và thiết kế. Cậu ấy nên tham gia dự án nào?\nLong: Cậu ấy có thể tham gia dự án Thiết kế bưu thiếp.",
+            whyCorrect: "Thông tin vế trước 'good at drawing and designing' (giỏi vẽ và thiết kế) liên quan trực tiếp tới 'Postcard Designing project' (dự án thiết kế bưu thiếp).",
+            whyWrong: "A và B không phù hợp khả năng vẽ/thiết kế. D là câu trả lời bất lịch sự và sai ngữ pháp."
+        }
+    },
+    // Cloze Text 1 (13-16)
+    {
+        section: "Cloze Text - Club Announcement",
+        qText: "<b>JOIN OUR HOBBIES CLUB!</b><br>Are you looking for a fun way to spend your afternoons? Our school is excited to announce the launch of a new Hobbies Club! This club is perfect for students who love (13) ______ new things and sharing their passions. You can enjoy various activities like doing origami, (14) ______ stamps, or even gardening. We meet every Tuesday and Thursday after school (15) ______ the art room. Don't worry if you don't have many supplies; we have some for you to use. Come and discover a new (16) ______ or share your favourite one. We hope to see you there!<br><br><b>Question 13.</b>",
+        options: [
+            { text: "learn", val: "A" },
+            { text: "learning", val: "B" },
+            { text: "learns", val: "C" },
+            { text: "learned", val: "D" }
+        ],
+        correct: "B",
+        exp: {
+            optTrans: "A. learn (v)\nB. learning (V-ing)\nC. learns (v_s)\nD. learned (V_ed)",
+            translation: "CLB này hoàn hảo cho những học sinh thích học hỏi những điều mới...",
+            whyCorrect: "Sau động từ 'love' ta dùng V-ing (love doing sth / love learning).",
+            whyWrong: "A, C, D không đúng dạng V-ing theo sau động từ chỉ sở thích 'love'."
+        }
+    },
+    {
+        section: "Cloze Text - Club Announcement",
+        qText: "<b>Question 14.</b>",
+        options: [
+            { text: "collect", val: "A" },
+            { text: "collects", val: "B" },
+            { text: "collected", val: "C" },
+            { text: "collecting", val: "D" }
+        ],
+        correct: "D",
+        exp: {
+            optTrans: "A. collect (v nguyên thể)\nB. collects (v_s)\nC. collected (V_ed)\nD. collecting (V-ing)",
+            translation: "Bạn có thể tận hưởng nhiều hoạt động như gấp giấy origami, sưu tầm tem...",
+            whyCorrect: "Cấu trúc song song liên kết bởi từ 'like': doing origami, collecting stamps, or gardening (đều ở dạng V-ing).",
+            whyWrong: "A, B, C vi phạm cấu trúc song hành của chuỗi danh động từ."
+        }
+    },
+    {
+        section: "Cloze Text - Club Announcement",
+        qText: "<b>Question 15.</b>",
+        options: [
+            { text: "on", val: "A" },
+            { text: "at", val: "B" },
+            { text: "in", val: "C" },
+            { text: "to", val: "D" }
+        ],
+        correct: "C",
+        exp: {
+            optTrans: "A. on: trên\nB. at: tại (điểm)\nC. in: trong (không gian phòng)\nD. to: tới",
+            translation: "Chúng tôi gặp nhau vào thứ Ba và thứ Năm sau giờ học trong phòng nghệ thuật (phòng mỹ thuật).",
+            whyCorrect: "Sử dụng giới từ 'in' cho không gian bên trong một căn phòng ('in the art room').",
+            whyWrong: "On dùng cho bề mặt/thứ; at dùng cho địa điểm chung; to thể hiện hướng di chuyển."
+        }
+    },
+    {
+        section: "Cloze Text - Club Announcement",
+        qText: "<b>Question 16.</b>",
+        options: [
+            { text: "hobby", val: "A" },
+            { text: "favourite", val: "B" },
+            { text: "subject", val: "C" },
+            { text: "lesson", val: "D" }
+        ],
+        correct: "A",
+        exp: {
+            optTrans: "A. hobby (n): sở thích\nB. favourite (adj/n): sự yêu thích\nC. subject (n): môn học\nD. lesson (n): bài học",
+            translation: "Hãy đến và khám phá một sở thích mới hoặc chia sẻ sở thích bạn yêu thích nhất.",
+            whyCorrect: "Đoạn văn đang quảng cáo về 'HOBBIES CLUB' (CLB sở thích) nên từ hợp ngữ cảnh nhất là 'hobby'.",
+            whyWrong: "Subject (môn học) và lesson (bài học) không thuộc chủ đề CLB sở thích ngoại khóa này."
+        }
+    },
+    // Sentence Rearrangement (17-18)
+    {
+        section: "Sentence Ordering",
+        qText: "<b>Question 17.</b> Put the sentences (a-c) in the correct order, then fill in the blank to make a logical text.<br><i>Our school held a special art exhibition last week. Everyone was keen to see the artworks. _________</i><br>a. The students created amazing pieces, and we were proud of their creativity.<br>b. The exhibition was a great success, and many parents came to see the art.<br>c. Each class contributed their best artworks, and they were displayed in the school hall.",
+        options: [
+            { text: "a-c-b", val: "A" },
+            { text: "c-a-b", val: "B" },
+            { text: "b-c-a", val: "C" },
+            { text: "c-b-a", val: "D" }
+        ],
+        correct: "B",
+        exp: {
+            optTrans: "Trình tự hợp lý: c -> a -> b\nc. Mỗi lớp đóng góp tác phẩm tốt nhất, trưng bày ở sảnh.\na. Học sinh tạo ra các tác phẩm tuyệt vời, chúng tôi tự hào...\nb. Triển lãm thành công rực rỡ và nhiều phụ huynh đã tới xem.",
+            translation: "Sắp xếp các câu thành đoạn văn logic.",
+            whyCorrect: "c nêu hành động chuẩn bị/đóng góp tác phẩm -> a đánh giá các tác phẩm đó -> b kết luận về sự thành công của buổi triển lãm.",
+            whyWrong: "Các thứ tự khác làm gián đoạn tính liên kết thời gian và logic nguyên nhân - kết quả."
+        }
+    },
+    {
+        section: "Sentence Ordering",
+        qText: "<b>Question 18.</b> Choose the sentence that you can end the text (in Question 17) most appropriately.",
+        options: [
+            { text: "We all enjoyed seeing the artworks and had a wonderful time at the exhibition.", val: "A" },
+            { text: "The art exhibition was canceled due to a scheduling conflict.", val: "B" },
+            { text: "The students were excited to receive awards for their work.", val: "C" },
+            { text: "The hall was decorated with colorful banners and balloons.", val: "D" }
+        ],
+        correct: "A",
+        exp: {
+            optTrans: "A. Tất cả chúng tôi đều thích ngắm nhìn các tác phẩm và có khoảng thời gian tuyệt vời tại buổi triển lãm.\nB. Triển lãm bị hủy do trùng lịch.\nC. Học sinh háo hức nhận giải thưởng.\nD. Sảnh được trang trí bóng bay.",
+            translation: "Chọn câu kết thúc đoạn văn trên một cách phù hợp nhất.",
+            whyCorrect: "Câu A tóm tắt cảm xúc vui vẻ hoàn hảo để kết thúc bài viết về sự kiện thành công.",
+            whyWrong: "B mâu thuẫn (triển lãm đã diễn ra rồi không thể canceled); C chưa đề cập có trao giải; D miêu tả cảnh trí hợp ở đầu hơn."
+        }
+    },
+    // Reading Passages 2 (19-24)
+    {
+        section: "Reading Comprehension - Passage 1",
+        qText: "I am teaching at Binh Minh Lower Secondary School. My students (19) ______ at grade 6, 7, and 8, and they have different (20) ______. Lan is studying at class 7A1. She is 13 years old. She likes writing poems and (21) ______. Tung is 14 years old, and he has very interesting hobbies. He likes doing puzzles, designing websites, and playing the guitar. Long is 12 years old, and he is (22) ______ class 6T1. His hobbies are playing football and (23) ______ models. My students do many interesting things, and they are often busy. They also love different subjects. Tung is the (24) ______ student in math. Lan is good at literature and arts, and Long is one of the best students in science. Their hobbies help them study well.<br><br><b>Question 19.</b>",
+        options: [
+            { text: "is", val: "A" },
+            { text: "are", val: "B" },
+            { text: "be", val: "C" },
+            { text: "being", val: "D" }
+        ],
+        correct: "B",
+        exp: {
+            optTrans: "A. is (số ít)\nB. are (số nhiều)\nC. be (nguyên thể)\nD. being (V-ing)",
+            translation: "Học sinh của tôi học ở khối 6, 7 và 8...",
+            whyCorrect: "Chủ ngữ 'My students' là danh từ số nhiều -> động từ to be ở hiện tại đơn phải dùng 'are'.",
+            whyWrong: "Is dùng cho số ít; be/being sai thì."
+        }
+    },
+    {
+        section: "Reading Comprehension - Passage 1",
+        qText: "<b>Question 20.</b>",
+        options: [
+            { text: "lessons", val: "A" },
+            { text: "subjects", val: "B" },
+            { text: "hobbies", val: "C" },
+            { text: "families", val: "D" }
+        ],
+        correct: "C",
+        exp: {
+            optTrans: "A. lessons: bài học\nB. subjects: môn học\nC. hobbies: sở thích\nD. families: gia đình",
+            translation: "...và các em có những sở thích khác nhau.",
+            whyCorrect: "Toàn bộ bài văn tiếp theo liệt kê về sở thích làm thơ, làm câu đố, đá bóng... của các bạn nên từ cần điền là 'hobbies'.",
+            whyWrong: "Lessons, subjects, families không bao quát đúng nội dung liệt kê hoạt động phía sau."
+        }
+    },
+    {
+        section: "Reading Comprehension - Passage 1",
+        qText: "<b>Question 21.</b>",
+        options: [
+            { text: "drawing", val: "A" },
+            { text: "draw", val: "B" },
+            { text: "to drawing", val: "C" },
+            { text: "to draw", val: "D" }
+        ],
+        correct: "A",
+        exp: {
+            optTrans: "A. drawing (V-ing)\nB. draw (v)\nC. to drawing (sai)\nD. to draw (to V)",
+            translation: "Cô ấy thích viết thơ và vẽ tranh.",
+            whyCorrect: "Liên từ 'and' nối 2 từ cùng dạng. Phía trước có 'writing' (V-ing) nên phía sau cũng phải dùng 'drawing' (V-ing).",
+            whyWrong: "B, C, D không đồng dạng V-ing với từ 'writing'."
+        }
+    },
+    {
+        section: "Reading Comprehension - Passage 1",
+        qText: "<b>Question 22.</b>",
+        options: [
+            { text: "at", val: "A" },
+            { text: "in", val: "B" },
+            { text: "about", val: "C" },
+            { text: "from", val: "D" }
+        ],
+        correct: "B",
+        exp: {
+            optTrans: "A. at: tại\nB. in: trong\nC. about: về\nD. from: từ",
+            translation: "Long 12 tuổi, và cậu ấy học ở lớp 6T1.",
+            whyCorrect: "Cấu trúc nói học sinh ở lớp nào: 'in class + tên lớp' (in class 6T1).",
+            whyWrong: "At, about, from không đi kèm với cấu trúc lớp học này."
+        }
+    },
+    {
+        section: "Reading Comprehension - Passage 1",
+        qText: "<b>Question 23.</b>",
+        options: [
+            { text: "doing", val: "A" },
+            { text: "making", val: "B" },
+            { text: "having", val: "C" },
+            { text: "buying", val: "D" }
+        ],
+        correct: "B",
+        exp: {
+            optTrans: "A. doing: làm (chung)\nB. making: làm, chế tạo\nC. having: có\nD. buying: mua",
+            translation: "Sở thích của cậu ấy là đá bóng và làm mô hình.",
+            whyCorrect: "Cụm từ kết hợp chuẩn: 'make models' (làm/lắp ráp mô hình). Ở đây chuyển thành V-ing là 'making models'.",
+            whyWrong: "Do models, have models, buy models không dùng để diễn tả sở thích tự làm mô hình."
+        }
+    },
+    {
+        section: "Reading Comprehension - Passage 1",
+        qText: "<b>Question 24.</b>",
+        options: [
+            { text: "good", val: "A" },
+            { text: "well", val: "B" },
+            { text: "better", val: "C" },
+            { text: "best", val: "D" }
+        ],
+        correct: "D",
+        exp: {
+            optTrans: "A. good (adj): tốt\nB. well (adv): tốt\nC. better (so sánh hơn): tốt hơn\nD. best (so sánh nhất): tốt nhất",
+            translation: "Tùng là học sinh giỏi toán nhất.",
+            whyCorrect: "Phía trước có mạo từ 'the' -> Dấu hiệu so sánh nhất 'the best'.",
+            whyWrong: "Good và well không đứng sau 'the' trong so sánh; better yêu cầu 'than'."
+        }
+    },
+    // Closest Meaning (25-26)
+    {
+        section: "Sentence Transformation",
+        qText: "Mark the letter A, B, C or D on your answer sheet to indicate the sentence that closest in meaning to the original sentence in each of the following questions.<br><b>Question 25.</b> I find dancing interesting.",
+        options: [
+            { text: "I think that dancing is interesting.", val: "1" },
+            { text: "I think dancing to be interesting.", val: "2" },
+            { text: "Dancing give me interesting", val: "3" },
+            { text: "Dancing is good for me", val: "4" }
+        ],
+        correct: "1",
+        exp: {
+            optTrans: "1. Tôi nghĩ rằng việc nhảy múa thì thú vị.\n2. Sai cấu trúc câu\n3. Sai ngữ pháp (give me interest mới đúng)\n4. Nhảy múa tốt cho tôi.",
+            translation: "Câu gốc: Tôi thấy nhảy múa thật thú vị. (Cấu trúc: find + V-ing + adj)",
+            whyCorrect: "Cấu trúc tương đương: 'find sth adj' = 'think that sth is adj'. Đáp án 1 viết lại chính xác nghĩa.",
+            whyWrong: "Các câu 2, 3, 4 sai ngữ pháp hoặc biến đổi làm sai lệch nghĩa gốc."
+        }
+    },
+    {
+        section: "Sentence Transformation",
+        qText: "<b>Question 26.</b> My sister loves talking to her friends in her free time.",
+        options: [
+            { text: "My sister enjoys talking to her friends in her free time.", val: "1" },
+            { text: "My sister detests talking to her friends in her free time", val: "2" },
+            { text: "My sister prefers talking to her friends to being at home.", val: "3" },
+            { text: "My sister rarely talks to her friends in her free time.", val: "4" }
+        ],
+        correct: "1",
+        exp: {
+            optTrans: "1. Chị tôi thích nói chuyện với bạn bè vào thời gian rảnh.\n2. Chị tôi ghét...\n3. Chị tôi thích... hơn ở nhà.\n4. Chị tôi hiếm khi...",
+            translation: "Câu gốc: Chị tôi yêu thích nói chuyện với bạn bè vào thời gian rảnh.",
+            whyCorrect: "Động từ 'love + V-ing' đồng nghĩa với 'enjoy + V-ing' (yêu thích/tận hưởng làm gì).",
+            whyWrong: "2 (detest = ghét) trái nghĩa; 3 thêm thông tin so sánh không có trong gốc; 4 (rarely = hiếm khi) sai nghĩa."
+        }
+    },
+    // Sentence Building (27-28)
+    {
+        section: "Sentence Building",
+        qText: "Mark the letter A, B, C or D on your answer sheet to indicate the sentence that is made from the given cues in each of the following questions.<br><b>Question 27.</b> your mother/go/to/market/everyday?",
+        options: [
+            { text: "Does your mother goes to the market everyday?", val: "1" },
+            { text: "Does your mother go to the market everyday?", val: "2" },
+            { text: "Is your mother goes to the market everyday?", val: "3" },
+            { text: "Is your mother go to the market everyday?", val: "4" }
+        ],
+        correct: "2",
+        exp: {
+            optTrans: "1. Sai vì sau Does lại giữ 'goes'\n2. Mẹ bạn có đi chợ mỗi ngày không?\n3. Sai dùng Is với động từ đi kèm\n4. Sai dùng Is với động từ go",
+            translation: "Tạo câu hỏi thì Hiện tại đơn với từ gợi ý.",
+            whyCorrect: "Chủ ngữ 'your mother' số ít -> Trợ động từ 'Does'. Sau trợ động từ 'Does', động từ chính đưa về nguyên thể 'go'.",
+            whyWrong: "1 thừa 's' ở goes; 3 và 4 dùng nhầm động từ to be 'Is'."
+        }
+    },
+    {
+        section: "Sentence Building",
+        qText: "<b>Question 28.</b> He/often/get up/at 5 a.m./and/go/jogging/in/park.",
+        options: [
+            { text: "He often gets up at 5 a.m and go jogging in the park.", val: "1" },
+            { text: "He often get up at 5 a.m and go jogging in the park.", val: "2" },
+            { text: "He often gets up at 5 a.m and goes jogging in the park.", val: "3" },
+            { text: "He often gets up at 5 a.m and go jogging in the park.", val: "4" }
+        ],
+        correct: "3",
+        exp: {
+            optTrans: "1 & 4. Sai vì 'go' chưa chia theo 'He'\n2. Sai vì 'get' chưa chia theo 'He'\n3. Anh ấy thường thức dậy lúc 5 giờ sáng và đi chạy bộ trong công viên.",
+            translation: "Viết lại câu thì Hiện tại đơn diễn tả thói quen.",
+            whyCorrect: "Chủ ngữ 'He' số ít -> 2 động từ nối bởi 'and' đều phải chia thêm -s/es: 'gets up' và 'goes'.",
+            whyWrong: "Các đáp án khác bỏ quên việc chia động từ 'go' hoặc 'get' theo chủ ngữ số ít."
+        }
+    },
+    // Visual Notices Questions (29-30)
+    {
+        section: "Sign & Notice Interpretation",
+        qText: `<b>Question 29.</b> What does the sign say?
+        <div class="visual-container">
+            <div class="sign-board">
+                <div class="sign-icon">🚫🖐️</div>
+                <div class="sign-text">DO NOT TOUCH THE EXHIBITS</div>
+            </div>
+        </div>`,
+        options: [
+            { text: "You can clean the exhibits", val: "1" },
+            { text: "Touching is not allowed", val: "2" },
+            { text: "The exhibits are broken", val: "3" },
+            { text: "Visitors may take photos", val: "4" }
+        ],
+        correct: "2",
+        exp: {
+            optTrans: "1. Bạn có thể lau chùi hiện vật\n2. Việc chạm vào hiện vật không được cho phép\n3. Các hiện vật bị hỏng\n4. Khách tham quan có thể chụp ảnh",
+            translation: "Biển báo nói gì?",
+            whyCorrect: "Biển báo 'DO NOT TOUCH' = Không được chạm vào -> Bằng nghĩa với 'Touching is not allowed'.",
+            whyWrong: "1, 3, 4 suy đoán không dựa trên nội dung cấm chạm của biển báo."
+        }
+    },
+    {
+        section: "Sign & Notice Interpretation",
+        qText: `<b>Question 30.</b> What does the sign say?
+        <div class="visual-container">
+            <div class="phone-mockup">
+                <div class="phone-screen">
+                    <div style="font-weight:bold; margin-bottom:5px; color:#374151;">📱 Message from Library</div>
+                    <div class="chat-bubble">Hi David, you left your key at the school library. You can come and collect it before 5 PM!</div>
+                </div>
+            </div>
+        </div>`,
+        options: [
+            { text: "David is going to learning in school library", val: "1" },
+            { text: "David can get his key back by coming to the library.", val: "2" },
+            { text: "David can get his key back at his friend’s house.", val: "3" },
+            { text: "David’s friend isn’t keeping his key.", val: "4" }
+        ],
+        correct: "2",
+        exp: {
+            optTrans: "1. David sẽ học ở thư viện\n2. David có thể lấy lại chìa khóa bằng cách đến thư viện.\n3. David có thể lấy chìa khóa ở nhà bạn\n4. Bạn của David không giữ chìa khóa",
+            translation: "Tin nhắn hiển thị thông điệp gì?",
+            whyCorrect: "Tin nhắn báo chìa khóa bị quên ở thư viện school library và dặn 'come and collect it' -> David lấy lại chìa khóa bằng cách đến thư viện.",
+            whyWrong: "1 không nhắc tới việc học; 3 sai địa điểm (nhà bạn); 4 không khớp nội dung."
+        }
+    },
+    // Reading Comprehension 3 - Healthy Diet (31-36)
+    {
+        section: "Reading Comprehension - Healthy Diet",
+        qText: "<b>HEALTHY DIET</b><br>There are two important matters in eating. First is eating enough food. If people eat too little food or wrong food, they will not have enough energy. If they eat too much, they are easy to get overweight. Secondly is eating right food. It means we need to eat correct quantity of each type of food. For example, it is not good to eat too much food in high-calories group and too little fresh and vegetable. So, how do we have a right and balance diet?<br>Firstly, we need to reduce the amount of high-calories food. Fat in that type of food may lead you to heart disease. Secondly, you also should not eat too much sugar. You can completely get energy from other food. Eating sugar is bad for your teeth. Thirdly, it is good to have a rich-fibre diet. We can find fibre from rice, bread, etc. It is nutrients. It can give you lots of energy, but it does not contain much calories, so you are not afraid of getting overweight when you eat much fibre.<br><br><b>Question 31.</b> How many important matters do we need to care in eating?",
+        options: [
+            { text: "One", val: "A" },
+            { text: "Two", val: "B" },
+            { text: "Three", val: "C" },
+            { text: "Four", val: "D" }
+        ],
+        correct: "B",
+        exp: {
+            optTrans: "A. 1\nB. 2\nC. 3\nD. 4",
+            translation: "Có bao nhiêu vấn đề quan trọng chúng ta cần quan tâm khi ăn uống?",
+            whyCorrect: "Dòng đầu tiên bài đọc ghi rõ: 'There are two important matters in eating' (Có 2 vấn đề quan trọng trong ăn uống).",
+            whyWrong: "A, C, D sai với thông tin trực tiếp trong câu mở đầu bài đọc."
+        }
+    },
+    {
+        section: "Reading Comprehension - Healthy Diet",
+        qText: "<b>Question 32.</b> What will happen if we do not eat enough food?",
+        options: [
+            { text: "We will not have enough energy.", val: "1" },
+            { text: "We can lose weight and keep fit", val: "2" },
+            { text: "Nothing happens", val: "3" },
+            { text: "We can save a lot of money spending eating.", val: "4" }
+        ],
+        correct: "1",
+        exp: {
+            optTrans: "1. Chúng ta sẽ không có đủ năng lượng.\n2. Giảm cân giữ dáng\n3. Không có gì xảy ra\n4. Tiết kiệm tiền",
+            translation: "Điều gì xảy ra nếu chúng ta không ăn đủ thức ăn?",
+            whyCorrect: "Bài đọc nêu: 'If people eat too little food... they will not have enough energy.' (Nếu ăn quá ít, họ sẽ không có đủ năng lượng).",
+            whyWrong: "Các đáp án 2, 3, 4 không được đề cập trong bài."
+        }
+    },
+    {
+        section: "Reading Comprehension - Healthy Diet",
+        qText: "<b>Question 33.</b> What will happen if we eat too much food?",
+        options: [
+            { text: "We will have enough energy.", val: "1" },
+            { text: "We are easy to get overweight.", val: "2" },
+            { text: "Nothing happens", val: "3" },
+            { text: "It can give us lots of energy and we will be healthier", val: "4" }
+        ],
+        correct: "2",
+        exp: {
+            optTrans: "1. Đủ năng lượng\n2. Chúng ta dễ bị thừa cân.\n3. Không có gì xảy ra\n4. Khỏe mạnh hơn",
+            translation: "Điều gì xảy ra nếu ăn quá nhiều?",
+            whyCorrect: "Trích bài đọc: 'If they eat too much, they are easy to get overweight.' (Nếu ăn quá nhiều, họ dễ bị thừa cân).",
+            whyWrong: "1, 3, 4 sai với hậu quả thừa cân được nêu trong bài."
+        }
+    },
+    {
+        section: "Reading Comprehension - Healthy Diet",
+        qText: "<b>Question 34.</b> What type of food is harmful to our teeth?",
+        options: [
+            { text: "Protein", val: "A" },
+            { text: "Rice", val: "B" },
+            { text: "Bread", val: "C" },
+            { text: "Sugar", val: "D" }
+        ],
+        correct: "D",
+        exp: {
+            optTrans: "A. Đạm\nB. Cơm/Gạo\nC. Bánh mì\nD. Đường",
+            translation: "Loại thực phẩm nào có hại cho răng của chúng ta?",
+            whyCorrect: "Đoạn 2 ghi: 'Eating sugar is bad for your teeth.' (Ăn đường không tốt/có hại cho răng).",
+            whyWrong: "Protein không nhắc; Rice và Bread được nhắc ở phần giàu chất xơ tốt cho cơ thể."
+        }
+    },
+    {
+        section: "Reading Comprehension - Healthy Diet",
+        qText: "<b>Question 35.</b> Where can we find fibre?",
+        options: [
+            { text: "rice", val: "A" },
+            { text: "bread", val: "B" },
+            { text: "vegetable", val: "C" },
+            { text: "rice and bread", val: "D" }
+        ],
+        correct: "D",
+        exp: {
+            optTrans: "A. Cơm\nB. Bánh mì\nC. Rau củ\nD. Cơm và bánh mì",
+            translation: "Chúng ta có thể tìm thấy chất xơ ở đâu?",
+            whyCorrect: "Đoạn 2 bài viết ghi rõ: 'We can find fibre from rice, bread, etc.' -> Cả gạo/cơm và bánh mì.",
+            whyWrong: "A và B chưa đầy đủ bằng D."
+        }
+    },
+    {
+        section: "Reading Comprehension - Healthy Diet",
+        qText: "<b>Question 36.</b> The word “overweight” is CLOSEST in meaning to ______.",
+        options: [
+            { text: "obesity", val: "A" },
+            { text: "obedience", val: "B" },
+            { text: "healthy", val: "C" },
+            { text: "diabetes", val: "D" }
+        ],
+        correct: "A",
+        exp: {
+            optTrans: "A. obesity (n): sự béo phì\nB. obedience (n): sự vâng lời\nC. healthy (adj): khỏe mạnh\nD. diabetes (n): bệnh tiểu đường",
+            translation: "Từ 'overweight' (thừa cân) gần nghĩa nhất với từ nào?",
+            whyCorrect: "'Overweight' (thừa cân) đồng nghĩa sát nhất với 'obesity' (béo phì).",
+            whyWrong: "B (ngoan ngoãn), C (khỏe mạnh), D (bệnh tiểu đường - là căn bệnh do thừa cân gây ra chứ không đồng nghĩa)."
+        }
+    },
+    // Paragraph Insertion (37-40)
+    {
+        section: "Text Completion - Gap Insertion",
+        qText: "Each country has many good people (37) ______. For example, some of students in the United States often spend many hours as volunteers in hospitals, orphanages or homes for the elderly. (38) ______, or they just visit them and play games with them or listen to their problems.<br>Other young volunteers go and work in the homes of people (39) ______. They paint, clean up, or repair their houses, do the shopping. For boys who don't have fathers, there is an organization called Big Brothers. College students and other men take these boys to basketball games or on fishing trips and help them to get to know things those boys usually learn from their fathers.<br>(40) ______. Some of these clubs show movies or hold short trip to the mountains, the beaches, museums, or other places of interest. Most of these clubs use a lot of students as volunteers because they are young enough to understand the problems of younger boys and girls.<br><br><i>Provided Options:</i><br>1. They read books to the people in these places<br>2. who are sick or old<br>3. Each city has a number of clubs where boys and girls can go and play games<br>4. who take care of others<br><br><b>Question 37.</b> Choose the fitting option for blank (37):",
+        options: [
+            { text: "1", val: "A" },
+            { text: "2", val: "B" },
+            { text: "3", val: "C" },
+            { text: "4", val: "D" }
+        ],
+        correct: "D",
+        exp: {
+            optTrans: "A. Option 1\nB. Option 2\nC. Option 3\nD. Option 4 (who take care of others)",
+            translation: "Mỗi quốc gia đều có nhiều người tốt, những người biết chăm sóc người khác.",
+            whyCorrect: "Mệnh đề quan hệ 'who take care of others' bổ nghĩa phù hợp nhất cho danh từ 'good people'.",
+            whyWrong: "Các lựa chọn khác không thể bổ nghĩa trực tiếp cho 'good people' ở vị trí này."
+        }
+    },
+    {
+        section: "Text Completion - Gap Insertion",
+        qText: "<b>Question 38.</b> Choose the fitting option for blank (38):",
+        options: [
+            { text: "1", val: "A" },
+            { text: "2", val: "B" },
+            { text: "3", val: "C" },
+            { text: "4", val: "D" }
+        ],
+        correct: "A",
+        exp: {
+            optTrans: "A. Option 1 (They read books to the people in these places)\nB. Option 2\nC. Option 3\nD. Option 4",
+            translation: "Họ đọc sách cho những người ở những nơi này nghe...",
+            whyCorrect: "Phía sau có liên từ 'or' nối hoạt động ('or they just visit them...'), nên trước đó cần một mệnh đề hoạt động tương ứng: 'They read books...'.",
+            whyWrong: "2, 3, 4 không hợp ngữ pháp nối với vế sau."
+        }
+    },
+    {
+        section: "Text Completion - Gap Insertion",
+        qText: "<b>Question 39.</b> Choose the fitting option for blank (39):",
+        options: [
+            { text: "1", val: "A" },
+            { text: "2", val: "B" },
+            { text: "3", val: "C" },
+            { text: "4", val: "D" }
+        ],
+        correct: "B",
+        exp: {
+            optTrans: "A. Option 1\nB. Option 2 (who are sick or old)\nC. Option 3\nD. Option 4",
+            translation: "Những tình nguyện viên trẻ khác đến làm việc tại nhà của những người bị ốm hoặc già yếu.",
+            whyCorrect: "'who are sick or old' bổ nghĩa bổ sung cho 'people' (người ốm hoặc người già).",
+            whyWrong: "Các câu khác sai về cấu trúc mệnh đề quan hệ đứng sau danh từ 'people'."
+        }
+    },
+    {
+        section: "Text Completion - Gap Insertion",
+        qText: "<b>Question 40.</b> Choose the fitting option for blank (40):",
+        options: [
+            { text: "1", val: "A" },
+            { text: "2", val: "B" },
+            { text: "3", val: "C" },
+            { text: "4", val: "D" }
+        ],
+        correct: "C",
+        exp: {
+            optTrans: "A. Option 1\nB. Option 2\nC. Option 3 (Each city has a number of clubs where boys and girls can go and play games)\nD. Option 4",
+            translation: "Mỗi thành phố đều có một số câu lạc bộ nơi các em thiếu niên có thể đến chơi trò chơi.",
+            whyCorrect: "Đứng ở đầu đoạn 3 làm câu chủ đề. Vế đằng sau nhắc tới 'Some of these clubs' (Một vài trong số các câu lạc bộ này) -> Trước đó phải giới thiệu về 'clubs'.",
+            whyWrong: "1, 2, 4 không nhắc đến 'clubs' để tạo liên kết cho câu kế tiếp."
+        }
+    }
+];
+
+// Additional Stamp Question at the end (Question 41/Bonus as requested in prompt)
+questionsData.push({
+    section: "Sentence Rearrangement - Stamp Hobby",
+    qText: "<b>Bonus Question.</b> Put the clauses/sentences in the correct order to make a sensible paragraph about collecting stamps:<br>1. Some stamps are rare and valuable, which makes collecting exciting.<br>2. It doesn't cost much to start this hobby.<br>3. Collecting stamps is a popular hobby around the world.",
+    options: [
+        { text: "a-c-b", val: "A" },
+        { text: "b-a-c", val: "B" },
+        { text: "b-c-a", val: "C" },
+        { text: "c-a-b", val: "D" } // Logical order: General -> cost -> excitement
+    ],
+    correct: "C",
+    exp: {
+        optTrans: "Sắp xếp: 3 -> 2 -> 1 (c-b-a hoặc b-c-a tương ứng)\n- Giới thiệu sở thích sưu tầm tem phổ biến\n- Không tốn nhiều tiền để bắt đầu\n- Một số tem hiếm và giá trị làm nó thú vị.",
+        translation: "Sắp xếp ý nghĩa hợp lý cho đoạn văn về sưu tầm tem.",
+        whyCorrect: "Thứ tự sắp xếp diễn đạt từ khái quát đến chi tiết lợi ích và sự hấp dẫn của sở thích.",
+        whyWrong: "Các thứ tự khác thiếu tính liên kết ý."
+    }
+});
+
+let userAnswers = {};
+
+// Shuffle array algorithm
+function shuffleArray(array) {
+    let arr = [...array];
+    for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+}
+
+// Render Quiz
+function renderQuiz() {
+    const container = document.getElementById('quiz-container');
+    container.innerHTML = '';
+
+    questionsData.forEach((q, index) => {
+        const qCard = document.createElement('div');
+        qCard.className = 'question-card';
+        qCard.id = `card-${index}`;
+
+        // Header section tag if present
+        let sectionHtml = q.section ? `<div class="section-header">${q.section}</div>` : '';
+
+        // Shuffle options
+        const shuffledOpts = shuffleArray(q.options);
+
+        let optionsHtml = '<div class="options-grid">';
+        shuffledOpts.forEach(opt => {
+            optionsHtml += `
+                <button class="opt-btn" onclick="selectAnswer(${index}, '${opt.val}', this)">
+                    ${opt.text}
+                </button>
+            `;
+        });
+        optionsHtml += '</div>';
+
+        // Explanation Box
+        const expHtml = `
+            <div class="explanation-box" id="exp-${index}">
+                <div class="exp-title">💡 GIẢI THÍCH CHI TIẾT TỪ MS LÊ HẰNG:</div>
+                <div class="exp-section"><strong>1. Phân tích từ vựng / Đáp án:</strong><br>${q.exp.optTrans.replace(/\n/g, '<br>')}</div>
+                <div class="exp-section"><strong>2. Dịch nghĩa / Ngữ cảnh:</strong> ${q.exp.translation}</div>
+                <div class="exp-section"><strong>3. Tại sao chọn đáp án đúng?</strong> ${q.exp.whyCorrect}</div>
+                <div class="exp-section"><strong>4. Tại sao các đáp án còn lại sai?</strong> ${q.exp.whyWrong}</div>
+            </div>
+        `;
+
+        qCard.innerHTML = `
+            ${sectionHtml}
+            <div><span class="q-number">Câu ${index + 1}</span></div>
+            <div class="q-title">${q.qText}</div>
+            ${optionsHtml}
+            ${expHtml}
+        `;
+
+        container.appendChild(qCard);
+    });
+}
+
+// Handle Answer Selection
+function selectAnswer(qIndex, selectedVal, btnElement) {
+    if (userAnswers[qIndex] !== undefined) return; // Prevent re-selection
+
+    userAnswers[qIndex] = selectedVal;
+    const qData = questionsData[qIndex];
+    const card = document.getElementById(`card-${qIndex}`);
+    const allBtns = card.querySelectorAll('.opt-btn');
+
+    allBtns.forEach(btn => btn.disabled = true);
+
+    if (selectedVal === qData.correct) {
+        btnElement.classList.add('correct');
+        playSound('correct');
+        // Confetti for single correct answer
+        confetti({
+            particleCount: 40,
+            spread: 60,
+            origin: { y: 0.7 }
+        });
+    } else {
+        btnElement.classList.add('wrong');
+        card.classList.add('shake');
+        playSound('wrong');
+        
+        // Highlight correct button
+        allBtns.forEach(btn => {
+            if (btn.innerText.includes(qData.correct) || btn.getAttribute('onclick').includes(`'${qData.correct}'`)) {
+                btn.classList.add('correct');
+            }
+        });
+    }
+
+    // Auto show explanation
+    const expBox = document.getElementById(`exp-${qIndex}`);
+    expBox.style.display = 'block';
+}
+
+// Submit Quiz & Show Modal
+function submitQuiz() {
+    let score = 0;
+    const total = questionsData.length;
+
+    questionsData.forEach((q, idx) => {
+        if (userAnswers[idx] === q.correct) {
+            score++;
+        }
+    });
+
+    const percentage = (score / total) * 100;
+    let feedback = '';
+
+    if (percentage < 50) {
+        feedback = "Điểm lần này chưa cao lắm, con cố gắng đọc kỹ giải thích đáp án và làm lại nha. Cô tin con sẽ làm tốt hơn ở lần sau! 💪🌸";
+    } else if (percentage <= 85) {
+        feedback = "Con đã có tiến bộ khá ổn rồi, con cố gắng đọc kỹ giải thích đáp án và làm lại nha. Cô tin con sẽ làm tốt hơn ở lần sau! 🌟👍";
+    } else {
+        feedback = "Làm tốt lắm, con cố gắng rinh điểm 10 ở lần sau nha! 🎉🏆✨";
+        confetti({
+            particleCount: 150,
+            spread: 100,
+            origin: { y: 0.6 }
+        });
+    }
+
+    document.getElementById('scoreDisplay').innerText = `${score} / ${total}`;
+    document.getElementById('feedbackDisplay').innerText = feedback;
+    document.getElementById('resultModal').style.display = 'flex';
+}
+
+function closeModal() {
+    document.getElementById('resultModal').style.display = 'none';
+}
+
+// Initialize on page load
+window.onload = function() {
+    renderQuiz();
+};
+</script>
+</body>
+</html>
